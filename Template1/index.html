@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walimatulurus Irfan & Bini Irfan</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Kaushan+Script&display=swap" rel="stylesheet">
+    
+    <!-- AOS Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-cream: #ffe3be;
+            --maroon-text: #7d415d;
+            --nav-bg: #ffe3be;
+            --btn-pink: #82796B;
+            --card-pink: #ffe3be;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: var(--font-sans);
+            color: #4a4a4a;
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        /* WELCOME COVER SCREEN */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f9ebe6;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: transform 4.0s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .welcome-overlay.fade-out-page {
+            transform: translateY(-100%);
+        }
+
+        .envelope-video-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .welcome-content-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-wax-seal-trigger {
+            position: absolute;
+            bottom: 30%; 
+            width: 130px;  
+            height: 130px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            padding: 0;
+            animation: waxSealPulse 1.4s infinite alternate;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .wax-seal-img {
+            width: 85px;  
+            height: 85px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); 
+            transition: transform 0.2s ease;
+            z-index: 2;
+        }
+
+        .curved-text-svg {
+            position: absolute;
+            top: 7px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .curved-text-svg text {
+            font-family: var(--font-sans);
+            font-size: 8.5px;
+            font-weight: 500;
+            letter-spacing: 2.5px;
+            fill: #7d415d;
+            text-transform: uppercase;
+        }
+
+        @keyframes waxSealPulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+
+        /* 🚀 MAIN WRAPPER BERSIH */
+        /* 🚀 MAIN WRAPPER LUTSINAR (BIAR BACKGROUND BELAKANG NAMPAK SELESA) */
+        .main-wrapper {
+            width: 100%;
+            max-width: 450px;
+            background: transparent; /* Wajib transparent */
+            min-height: 100vh;
+            position: relative;
+            /*box-shadow: 0 0 20px rgba(0,0,0,0.1);*/
+            padding: 25px 15px 80px 15px;
+            z-index: 1;
+        }
+
+        /* 🔒 BEKAS BACKGROUND KUNCI SAIZ (120VH) */
+        .fixed-bg-container {
+            position: fixed;
+            top: -10vh; /* Kunci kedudukan extra 10% atas */
+            left: 50%;
+            transform: translate3d(-50%, 0, 0); /* Akselerasi hardware GPU phone */
+            width: 100%;
+            max-width: 450px;
+            height: 120vh; /* Lebih tinggi dari skrin phone supaya tak terkesan dengan address bar */
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* 🖼️ GAMBAR BACKGROUND UTAMA (BgImage2.jpg) */
+        .fixed-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('BgImage2.png'); /* ⚠️ Gantikan 'BgImage2.jpg' dengan nama fail gambar latar belakang kau */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* 🤍 OVERLAY IMEJ PUTIH STATIK (KALIS CROPPED) */
+        .fixed-bg-overlay {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Cloud1.png'); 
+            
+            /* 🚀 UBAH SINI: Paksa gambar muat 100% ikut lebar phone tanpa terpotong tepi */
+            background-size: 130% auto; 
+            
+            background-position: top center; /* Rapatkan ke atas */
+            background-repeat: no-repeat;
+            opacity: 0.75;
+        }
+        /* STICKY BOTTOM NAVIGATION BAR */
+        .bottom-navbar {
+            position: fixed; 
+            bottom: 0;       
+            top: auto;
+            width: 100%;
+            max-width: 450px; 
+            background-color: var(--nav-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 14px 5px; 
+            z-index: 1999; 
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.15); 
+            margin-left: -15px; 
+        }
+
+        .nav-button {
+            background-color: var(--btn-pink);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: white;
+            color: var(--maroon-text);
+        }
+
+        /* 🚀 REKAAN TANPA FRAME & ANIMASI SCROLL REVERSIBLE */
+        .section-clean {
+            margin: 35px auto;
+            padding: 20px 10px;
+            text-align: center;
+            position: relative; 
+            z-index: 2; 
+            transform: scale(0.7);
+            opacity: 0.3;
+            transition: transform 1.0s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+        }
+
+        .section-clean.active {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* 🎨 REKAAN DIVIDER GRAPHIC IMAGE */
+        .section-divider-img {
+            width: 60%;
+            max-width: 220px;
+            height: auto;
+            display: block;
+            margin: 25px auto 10px auto;
+            pointer-events: none;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* HERO INVITATION STYLE */
+        .hero-section {
+            padding-top: 20px;
+            padding-bottom: 10px;
+        }
+
+        .hero-groom-name, .hero-bride-name {
+            font-family: 'Kaushan Script', cursive;
+            font-size: 42px;
+            color: var(--maroon-text);
+            line-height: 1.3;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-ampersand {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 32px;
+            color: #333333;
+            display: block;
+            line-height: 1.0;
+            margin-top: 8px;     
+            margin-bottom: 8px;  
+        }
+
+        .center-flower-illustration {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0; 
+            padding: 0 5px;
+            display: block;
+            transform: scaleX(-1); 
+        }
+
+        .title-walimatulurus {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: #4a4a4a;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+        }
+
+        .event-meta-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-family: var(--font-sans);
+            color: #4a4a4a;
+            margin-bottom: 30px;
+        }
+
+        .event-meta-info .vertical-line {
+            width: 1px;
+            height: 40px;
+            background-color: var(--maroon-text);
+            margin: 0 25px;
+        }
+
+        .primary-hashtag {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: #4a4a4a;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .greeting-sub {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+        }
+
+        .parents-full-name {
+            font-family: 'Amiri', serif;
+            font-size: 17px; 
+            color: var(--maroon-text);
+            font-weight: 700;
+            margin: 5px 0;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+
+        .invitation-body-paragraph {
+            font-size: 11px;
+            line-height: 1.7;
+            margin: 25px auto;
+            max-width: 95%;
+            color: #4a4a4a;
+        }
+
+        .split-couple-container {
+            width: 100%;
+            margin: 35px 0 10px 0;
+            text-align: left;
+        }
+
+        .couple-row-block {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .couple-row-block.reverse-direction {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+
+        /* 🖼️ PROFILE FRAME PENGANTIN KEKAL BERGAYA */
+        .profile-wooden-frame {
+            width: 135px; 
+            height: 135px;
+            background-color: transparent;
+            position: relative;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: visible;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-wooden-frame::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('frame.png'); 
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .profile-wooden-frame:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-wooden-frame img {
+            width: 70%;  
+            height: 80%; 
+            object-fit: cover;
+            border-radius: 0px; 
+            z-index: 1;  
+            position: relative;
+        }
+
+        .bismillah-img {
+            width: 140px;
+            height: auto;
+            margin: 0 auto 15px auto;
+            display: block;
+        }
+
+        .couple-text-details {
+            padding: 0 10px;
+            font-family: 'Italianno', cursive;
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--maroon-text);
+            line-height: 1.1;
+            letter-spacing: 0.5px;
+            flex: 1; 
+        }
+
+        .section-headline-serif {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            color: #5d6353;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .canva-countdown-display {
+            font-size: 38px;
+            color: var(--maroon-text);
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin: 15px 0;
+            font-family: var(--font-sans);
+        }
+
+        .canva-countdown-labels {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #666666;
+            letter-spacing: 1px;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+        .canva-countdown-labels span {
+            width: 45px;
+            text-align: center;
+        }
+
+        .illustration-faceless-couple {
+            width: 65%;
+            margin: 20px auto 0 auto;
+            display: block;
+        }
+
+        .huge-section-title {
+            font-family: var(--font-serif);
+            font-size: 54px;
+            color: #3b4d3a;
+            line-height: 0.9;
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        .itinerary-sublabel {
+            font-size: 18px;
+            font-weight: 500;
+            color: #4a4a4a;
+            margin-top: 25px;
+            margin-bottom: 8px;
+        }
+
+        .itinerary-value-text {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .canva-vertical-timeline {
+            margin: 30px auto;
+            max-width: 320px;
+            position: relative;
+            text-align: left;
+            padding-left: 30px;
+        }
+
+        .canva-vertical-timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            bottom: 5px;
+            width: 1px;
+            background: var(--nav-bg);
+        }
+
+        .timeline-row-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .timeline-row-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--maroon-text);
+            border: 2px solid var(--bg-cream);
+            box-shadow: 0 0 0 2px var(--maroon-text);
+        }
+
+        .timeline-row-item .event-time {
+            font-weight: 600;
+            color: #9c414d;
+            display: inline-block;
+            width: 80px;
+            font-size: 14px;
+        }
+
+        .timeline-row-item .event-name {
+            font-size: 13px;
+            display: inline-block;
+            vertical-align: top;
+            max-width: 200px;
+        }
+
+        .embedded-location-anchor {
+            color: #3b4d3a;
+            text-decoration: underline;
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .prayer-blessing-text {
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 15px 0 25px 0;
+            font-style: italic;
+            padding: 0 10px;
+        }
+
+        /* OVERLAY SYSTEM */
+        .fullpage-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(249, 235, 230, 0.95); 
+            background-image: url('background-pattern.png');
+            background-size: cover;
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            overflow-y: auto;
+            animation: fadeInOverlay 0.3s ease forwards;
+        }
+
+        .fullpage-content-box {
+            width: 100%;
+            max-width: 450px;
+            min-height: 100vh;
+            padding: 40px 25px;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+        }
+
+        .pink-dashboard-card {
+            background-color: var(--card-pink);
+            width: 100%;
+            max-width: 360px; 
+            border-radius: 40px;
+            padding: 40px 20px;
+            color: #4a4a4a;
+            box-shadow: 0 15px 35px rgba(128, 51, 60, 0.25);
+            text-align: center;
+            animation: bubbleInCard 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25) forwards;
+        }
+
+        .back-circle-button {
+            position: absolute;
+            top: 30px; 
+            left: 25px;
+            background-color: var(--nav-bg);
+            color: #4a4a4a;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 2010;
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bubbleInCard {
+            0% { transform: scale(0.6); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .dashboard-card-headline {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .dashboard-contact-list {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 2;
+            letter-spacing: 0.5px;
+        }
+
+        .dashboard-action-trigger {
+            background-color: #82796B;
+            color: #ffffff;
+            border: none;
+            padding: 12px 50px;
+            border-radius: 15px;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: inline-block;
+        }
+
+        .music-floating-toggle {
+            position: fixed;
+            bottom: 85px; 
+            right: calc(50% - 200px);
+            width: 45px;
+            height: 45px;
+            background-color: var(--nav-bg);
+            color: #4a4a4a;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        @media (max-width: 450px) {
+            .music-floating-toggle { right: 25px; }
+        }
+
+        /* WISHES GUESTBOOK STYLE */
+        .wishes-container {
+            max-height: 450px;
+            overflow-y: auto; 
+            padding-right: 5px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .wishes-container::-webkit-scrollbar { width: 4px; }
+        .wishes-container::-webkit-scrollbar-thumb {
+            background: var(--btn-pink);
+            border-radius: 10px;
+        }
+
+        .single-wish-card {
+            background: rgba(255, 255, 255, 0.6);
+            border-left: 3px solid var(--maroon-text);
+            padding: 12px 15px;
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .wish-text {
+            font-size: 12px;
+            font-style: italic;
+            line-height: 1.5;
+            color: #4a4a4a;
+            margin-bottom: 5px;
+        }
+
+        .wish-sender {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--maroon-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .no-wishes {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+            padding: 20px 0;
+        }
+
+        /* GIFT LIST POPUP STYLE */
+        .gift-overlay-scroll {
+            width: 100%;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-top: 15px;
+        }
+
+        .giftlist-intro-box-popup {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 20px;
+            font-size: 11px;
+            line-height: 1.6;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .giftlist-grid-popup {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            text-align: left;
+        }
+
+        .giftlist-popup-card {
+            position: relative;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .giftlist-popup-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background-color: #f5f5f5;
+        }
+
+        .giftlist-popup-details {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .giftlist-popup-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333333;
+            line-height: 1.3;
+        }
+
+        .giftlist-popup-platform {
+            font-size: 10px;
+            color: #666666;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .gift-claimed-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            pointer-events: none;
+        }
+
+        .giftful-submodal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2100;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .giftful-modal-content {
+            background: #222222;
+            color: white;
+            width: 100%;
+            max-width: 340px;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            animation: bubbleInCard 0.3s ease forwards;
+        }
+
+        .giftful-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        .giftful-img-container {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: #ffffff;
+        }
+
+        .giftful-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .giftful-body {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .giftful-body h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-family: var(--font-sans);
+        }
+
+        .giftful-variant-box {
+            background: #333333;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .giftful-claim-trigger {
+            width: 100%;
+            background-color: #52b788;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 15px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            text-align: center;
+            display: block;
+        }
+
+        .giftful-store-anchor {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background: #1a3a2a;
+            border: 1px solid #2d6a4f;
+            color: #52b788;
+            padding: 12px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- WELCOME COVER SCREEN -->
+    <div id="welcome-cover" class="welcome-overlay">
+        <video id="envelope-video" class="envelope-video-bg" autoplay muted playsinline>
+            <source src="envelopev1.mp4" type="video/mp4">
+        </video>
+
+        <div class="welcome-content-container">
+            <button onclick="bukaSampulSurat()" class="btn-wax-seal-trigger" aria-label="Buka Kad">
+                <img src="wax_seal.png" alt="Wax Seal Red" class="wax-seal-img">
+                <svg class="curved-text-svg" viewBox="0 0 100 100">
+                    <path id="textPath" d="M 12,50 A 38,38 0 0,0 88,50" fill="transparent" />
+                    <text>
+                        <textPath href="#textPath" startOffset="50%" text-anchor="middle">TAP HERE</textPath>
+                    </text>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <body>
+
+    <!-- 🖼️ LAPISAN BACKGROUND & OVERLAY STATIK (KALIS GLITCH SCROLL MOBILE) -->
+    <div class="fixed-bg-container">
+        <div class="fixed-bg-img"></div>
+        <div class="fixed-bg-overlay"></div>
+    </div>
+
+    <!-- MAIN WRAPPER UNIT -->
+    <div class="main-wrapper">
+
+    <!-- MAIN WRAPPER UNIT -->
+    <div class="main-wrapper">
+
+        <!-- ================= FRAME 1: HERO HOME PAGE ================= -->
+        <div class="section-clean" data-aos="zoom-in" data-aos-duration="800">
+            <section class="hero-section">
+                <div class="hero-groom-name">Irfan Auzaie</div>
+                <span class="hero-ampersand">&</span>
+                <div class="hero-bride-name">Nurul Afifah</div>
+                
+                <img src="sakura.png" alt="Sakura Illustration" class="center-flower-illustration">
+                
+                <p class="title-walimatulurus">WALIMATULURUS</p>
+                
+                <div class="event-meta-info">
+                    <div>NOVEMBER 7,<br>2026</div>
+                    <div class="vertical-line"></div>
+                    <div>DEWAN SERI CEMPAKA<br>KAJANG</div>
+                </div>
+                
+                <p class="primary-hashtag">#AFIciallywithFAN</p>
+            </section>
+        </div>
+
+        <!-- 🚀 DIVIDER GRAPHIC IMAGE 1 -->
+        <img src="Divider.png" alt="Divider Line" class="section-divider-img">
+
+        <!-- ================= FRAME 2: PARENTS & PHOTOS PAGE ================= -->
+        <div class="section-clean" data-aos="zoom-in" data-aos-duration="800">
+            <section>
+                <div>
+                    <img src="bismillah.png" alt="Bismillah Kaligrafi" class="bismillah-img">
+                    <p class="greeting-sub">ASSALAMUALAIKUM W.B.T & SALAM SEJAHTERA</p>
+                    
+                    <h2 class="parents-full-name">Haji Kamaruzzaman bin Ismail</h2>
+                    <p style="font-size: 14px; margin: 2px 0; font-family: var(--font-sans);">&</p>
+                    <h2 class="parents-full-name">Hajjah Bibi Khairani binti Mohammed Sabri</h2>
+                    
+                    <p class="invitation-body-paragraph">
+                        DENGAN PENUH KESYUKURAN DAN HORMATNYA MENJEMPUT YBHG. DATO'/DATIN/TUAN/PUAN/ENCIK/CIK KE MAJLIS PERKAHWINAN PUTERI KAMI
+                    </p>
+                </div>
+
+                <div class="split-couple-container">
+                    <div class="couple-row-block">
+                        <div class="profile-wooden-frame">
+                            <img src="gambar_nurul.png" alt="Omar Farouq">
+                        </div>
+                        <div class="couple-text-details">
+                            Nurul Afifah Zafirah Binti Kamaruzzaman
+                        </div>
+                    </div>
+
+                    <div class="couple-row-block reverse-direction" style="margin-bottom: 0;">
+                        <div class="profile-wooden-frame">
+                            <img src="gambar_irfan.png" alt="Nurul Izzah">
+                        </div>
+                        <div class="couple-text-details">
+                            Muhammad Irfan Auzaie Bin Mohamad Sharif
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 🚀 DIVIDER GRAPHIC IMAGE 2 -->
+        <img src="Divider.png" alt="Divider Line" class="section-divider-img">
+
+        <!-- ================= FRAME 3: COUNTDOWN TIME PAGE ================= -->
+        <div class="section-clean" data-aos="zoom-in" data-aos-duration="800">
+            <section>
+                <h2 class="section-headline-serif">MENANTI HARI BAHAGIA</h2>
+                
+                <div class="canva-countdown-display" id="live-timer-digits">
+                    00:00:00:00
+                </div>
+                <div class="canva-countdown-labels">
+                    <span>Hari</span>
+                    <span>Jam</span>
+                    <span>Minit</span>
+                    <span>Saat</span>
+                </div>
+                
+                <img src="Bride.png" alt="Faceless Couple Vector" class="illustration-faceless-couple">
+            </section>
+        </div>
+
+        <!-- 🚀 DIVIDER GRAPHIC IMAGE 3 -->
+        <img src="Divider.png" alt="Divider Line" class="section-divider-img">
+
+        <!-- ================= FRAME 4: ITINERARY TIME PAGE ================= -->
+        <div class="section-clean" data-aos="zoom-in" data-aos-duration="800">
+            <section>
+                <h2 class="huge-section-title">BUTIRAN<br>MAJLIS</h2>
+                
+                <p class="itinerary-sublabel" style="margin-top: 0;">Tarikh</p>
+                <p class="itinerary-value-text" style="font-weight: 500;">
+                    SABTU<br>7 NOVEMBER 2026<br>27 JAMADILAWAL 1448 AH
+                </p>
+                
+                <p class="itinerary-sublabel">Aturcara Majlis</p>
+                <div class="canva-vertical-timeline">
+                    <div class="timeline-row-item">
+                        <span class="event-time">11:00 AM</span>
+                        <span class="event-name">KETIBAAN TETAMU &<br>JAMUAN MAKAN</span>
+                    </div>
+                    <div class="timeline-row-item">
+                        <span class="event-time">12:00 PM</span>
+                        <span class="event-name">KETIBAAN PENGANTIN</span>
+                    </div>
+                    <div class="timeline-row-item" style="margin-bottom: 0;">
+                        <span class="event-time">4:00 PM</span>
+                        <span class="event-name">MAJLIS SELESAI</span>
+                    </div>
+                </div>
+                
+                <p class="itinerary-sublabel">Tempat</p>
+                <p class="itinerary-value-text" style="margin-bottom: 0;">
+                    <a href="https://maps.app.goo.gl/KpApyKnqbsFJVSf48?g_st=ac" target="_blank" class="embedded-location-anchor">DEWAN SERI CEMPAKA MPKJ,<br> PERSIARAN SAUJANA IMPIAN, SAUJANA IMPIAN,<br>43000 KAJANG, SELANGOR</a>
+                </p>
+            </section>
+        </div>
+
+        <!-- 🚀 DIVIDER GRAPHIC IMAGE 4 -->
+        <img src="Divider.png" alt="Divider Line" class="section-divider-img">
+
+        <!-- ================= FRAME 5: FOOTER BLESSING PAGE ================= -->
+        <div class="section-clean" data-aos="zoom-in" data-aos-duration="800">
+            <section>
+                <p class="prayer-blessing-text">
+                    YA ALLAH, BERKATILAH PENYATUAN INI, SATUKANLAH HATI MEREKA DALAM KASIH DAN RAHMAT-MU, SERTA KURNIAKANLAH KEBAHAGIAAN YANG BERKEKALAN HINGGA KE SYURGA-MU. AAMIIN YA RABBAL 'ALAMIN.
+                </p>
+                <p style="font-size: 11px; font-family: var(--font-sans); margin-bottom: 5px; font-weight: 500;">SURAH AN-NABA' AYAT 8:</p>
+                <p style="font-family: var(--font-serif); font-style: italic; font-size: 16px; color: var(--maroon-text); margin-bottom: 0;">"Dan Kami menciptakan kamu berpasang-pasangan."</p>
+            </section>
+        </div>
+
+        <!-- 🚀 DIVIDER GRAPHIC IMAGE 5 -->
+        <img src="Divider.png" alt="Divider Line" class="section-divider-img">
+
+        <!-- ================= FRAME 4.5: WISHES GUESTBOOK PAGE ================= -->
+        <div class="section-clean" data-aos="zoom-in" data-aos-duration="800">
+            <section style="width: 100%;">
+                <h2 class="section-headline-serif" style="margin-bottom: 10px; font-size: 24px;">UCAPAN TETAMU</h2>
+                
+                <div id="live-wishes-box" class="wishes-container">
+                    <p class="no-wishes">Sedang memuatkan ucapan indah...</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- STICKY BOTTOM NAVIGATION BAR -->
+        <nav class="bottom-navbar">
+            <button class="nav-button" onclick="displayFullPage('page-contact')">Hubungi</button>
+            <button class="nav-button" onclick="displayFullPage('page-rsvp')">RSVP</button>
+            <button class="nav-button" onclick="displayFullPage('page-giftlist')">Hadiah</button>
+            <button class="nav-button" onclick="window.open('https://maps.app.goo.gl/KpApyKnqbsFJVSf48?g_st=ac', '_blank')">Lokasi</button>
+        </nav>
+
+    </div><!-- End Main Wrapper -->
+
+    <!-- HALAMAN OVERLAY: HUBUNGI -->
+    <div id="page-contact" class="fullpage-overlay">
+        <div class="fullpage-content-box">
+            <button class="back-circle-button" onclick="dismissFullPage('page-contact')">&larr;</button>
+            <div class="pink-dashboard-card">
+                <div class="dashboard-card-headline">SILA KLIK NAMA DI BAWAH<br>UNTUK TERUS CHAT WHATSAPP:</div>
+                <div class="dashboard-contact-list">
+                    <p><a href="https://wa.me/60193879787" target="_blank" style="color: #82796B; text-decoration: none; display: block; padding: 5px 0;">💬 Rahim (019-3879787)</a></p>
+                    <p><a href="https://wa.me/60133751217" target="_blank" style="color: #82796B; text-decoration: none; display: block; padding: 5px 0;">💬 Ibni (013-3751217)</a></p>
+                    <p><a href="https://wa.me/60132815439" target="_blank" style="color: #82796B; text-decoration: none; display: block; padding: 5px 0;">💬 Uthman (013-2815439)</a></p>
+                    <p><a href="https://wa.me/60148376213" target="_blank" style="color: #82796B; text-decoration: none; display: block; padding: 5px 0;">💬 Khadijah (014-8376213)</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HALAMAN OVERLAY: RSVP -->
+    <div id="page-rsvp" class="fullpage-overlay">
+        <div class="fullpage-content-box">
+            <button class="back-circle-button" onclick="dismissFullPage('page-rsvp')">&larr;</button>
+            <div class="pink-dashboard-card">
+                <div class="dashboard-card-headline" style="margin-bottom: 10px;">SILA SAHKAN KEHADIRAN ANDA</div>
+                <div class="dashboard-card-headline">SEBELUM 28 OGOS 2026</div>
+                <button class="dashboard-action-trigger" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScF3Zl7HGbVTtjHcBviOBCYyz5T3nyCoL3UK4dsPojnWrfd9A/viewform?usp=dialog'">RSVP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HALAMAN OVERLAY: WEDDING GIFT LIST -->
+    <div id="page-giftlist" class="fullpage-overlay">
+        <div class="fullpage-content-box">
+            <button class="back-circle-button" onclick="dismissFullPage('page-giftlist')">&larr;</button>
+            
+            <div class="pink-dashboard-card" style="max-width: 400px; padding: 30px 15px; position: relative;">
+                <div class="dashboard-card-headline" style="margin-bottom: 5px; font-size: 18px;">Wedding Gift List</div>
+
+                <div class="giftlist-intro-box-popup">
+                    We've put together a small gift list for your convenience. Please know that your presence is the greatest gift to us, and there is absolutely no obligation to purchase anything.
+                </div>
+
+                <div class="gift-overlay-scroll">
+                    <div id="dynamic-gift-grid" class="giftlist-grid-popup">
+                        <!-- Data barang dijana JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gift-detail-modal" class="giftful-submodal">
+            <div class="giftful-modal-content">
+                <button class="giftful-close-btn" onclick="closeGiftDetail()">&times;</button>
+                
+                <div class="giftful-img-container">
+                    <img id="modal-gift-img" src="" alt="Product Image">
+                </div>
+                
+                <div class="giftful-body">
+                    <h3 id="modal-gift-name">Product Name</h3>
+                    <div class="giftful-variant-box" id="modal-gift-variant">Variant</div>
+                    
+                    <div id="gift-claimer-form-block" style="margin-bottom: 15px;">
+                        <p style="font-size: 11px; color: #aaa; margin-bottom: 5px; font-family: var(--font-sans);">Sila isi nama anda sebelum claim:</p>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="text" id="claimer-first-name" placeholder="Nama Pertama" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #333; color: white; font-size: 12px; font-family: var(--font-sans); outline: none;">
+                            <input type="text" id="claimer-last-name" placeholder="Nama Akhir" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #333; color: white; font-size: 12px; font-family: var(--font-sans); outline: none;">
+                        </div>
+                    </div>
+
+                    <button id="modal-claim-btn" class="giftful-claim-trigger" onclick="">+ Claim Hadiah</button>
+                    
+                    <a id="modal-shop-link" href="#" target="_blank" class="giftful-store-anchor">
+                        <span id="modal-store-icon">🛍️</span> <span id="modal-store-url">s.shopee.com.my</span>
+                        <span style="margin-left: auto;">↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEM LAGU LATAR -->
+    <audio id="canva-bg-music" loop>
+        <source src="Cinta Luar Biasa.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-floating-toggle" class="music-floating-toggle">🎵</button>
+
+    <!-- ENJIN JAVASCRIPT LOGIC -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+
+        const giftDatabaseUrl = "https://script.google.com/macros/s/AKfycbwmuEia-_UHbJVTcvTozYRlVZWDueAvnB4VOr01lP0EciJsJbZUJizJo9W1IoMMWw/exec";
+
+        let irfanGiftsData = [
+            { id: 0, name: "Cookware Set", variant: "6pcs White Wood", image: "hadiah_cookware.png", store: "Shopee", link: "https://s.shopee.com.my/rCZfWQQjkekTwSfu9" },
+            { id: 1, name: "Mugs Premium", variant: "Set of 6 Minimalist", image: "hadiah_mugs.png", store: "TikTok Shop", link: "https://vt.tiktok.com/ZMrXxxxxx/" },
+            { id: 2, name: "Cutlery Set Gold", variant: "24 Pcs Stainless Steel", image: "hadiah_cutlery.png", store: "Shopee", link: "https://s.shopee.com.my/example2" },
+            { id: 3, name: "Dish Rack Black", variant: "2-Tier Anti-Rust Space Saver", image: "hadiah_dishrack.png", store: "Shopee", link: "https://www.artdeco.com.my" }
+        ];
+
+        let giftStatusMap = {};
+
+        function fetchLiveGiftStatus() {
+            fetch(giftDatabaseUrl)
+                .then(response => response.json())
+                .then(data => {
+                    giftStatusMap = {}; 
+                    data.forEach(item => {
+                        giftStatusMap[String(item.giftId).trim()] = String(item.status).trim();
+                    });
+                    renderGiftGrid(); 
+                })
+                .catch(err => {
+                    console.error("Gagal tarik status live hadiah:", err);
+                    renderGiftGrid(); 
+                });
+        }
+
+        function renderGiftGrid() {
+            const gridContainer = document.getElementById("dynamic-gift-grid");
+            if (!gridContainer) return;
+            
+            gridContainer.innerHTML = "";
+            
+            irfanGiftsData.forEach(gift => {
+                const card = document.createElement("div");
+                card.className = "giftlist-popup-card";
+                card.onclick = () => openGiftDetail(gift.id);
+                
+                let isClaimed = giftStatusMap[String(gift.id)] === "claimed";
+                let claimedOverlayHtml = isClaimed ? `<div class="gift-claimed-overlay">CLAIMED</div>` : "";
+                
+                card.innerHTML = `
+                    ${claimedOverlayHtml}
+                    <img src="${gift.image}" alt="${gift.name}">
+                    <div class="giftlist-popup-details">
+                        <div class="giftlist-popup-name">${gift.name}</div>
+                        <div class="giftlist-popup-platform">🛍️ ${gift.store}</div>
+                    </div>
+                `;
+                gridContainer.appendChild(card);
+            });
+        }
+
+        function openGiftDetail(id) {
+            const gift = irfanGiftsData.find(g => g.id === id);
+            if (!gift) return;
+            
+            document.getElementById("modal-gift-img").src = gift.image;
+            document.getElementById("modal-gift-name").innerText = gift.name;
+            document.getElementById("modal-gift-variant").innerText = gift.variant;
+            document.getElementById("modal-shop-link").href = gift.link;
+            
+            document.getElementById("modal-store-icon").innerText = gift.store === "Shopee" ? "🛍️" : "🎵";
+            document.getElementById("modal-store-url").innerText = gift.link.replace('https://', '').substring(0, 22) + "...";
+            
+            const claimBtn = document.getElementById("modal-claim-btn");
+            const formBlock = document.getElementById("gift-claimer-form-block");
+            
+            document.getElementById("claimer-first-name").value = "";
+            document.getElementById("claimer-last-name").value = "";
+            
+            let isClaimed = giftStatusMap[String(gift.id)] === "claimed";
+            
+            let localClaimedGifts = JSON.parse(localStorage.getItem("my_claimed_gifts") || "[]");
+            let isMyOwnClaim = localClaimedGifts.includes(id);
+
+            claimBtn.disabled = false;
+
+            if (isClaimed) {
+                formBlock.style.display = "none";
+                
+                if (isMyOwnClaim) {
+                    claimBtn.innerText = "❌ Cancel Claim";
+                    claimBtn.className = "giftful-claim-trigger claimed-state";
+                    claimBtn.style.display = "block";
+                    claimBtn.style.backgroundColor = "#e63946";
+                } else {
+                    claimBtn.innerText = "🔒 Claimed by Someone Else";
+                    claimBtn.className = "giftful-claim-trigger";
+                    claimBtn.style.backgroundColor = "#555555";
+                    claimBtn.disabled = true;
+                }
+            } else {
+                claimBtn.innerText = "+ Claim Hadiah";
+                claimBtn.className = "giftful-claim-trigger";
+                claimBtn.style.backgroundColor = "#52b788";
+                claimBtn.style.display = "block";
+                formBlock.style.display = "block";
+            }
+            
+            claimBtn.onclick = () => toggleClaimGift(gift.id, isClaimed ? "unclaim" : "claim");
+            document.getElementById("gift-detail-modal").style.display = "flex";
+        }
+
+        function closeGiftDetail() {
+            document.getElementById("gift-detail-modal").style.display = "none";
+        }
+
+        function toggleClaimGift(id, action) {
+            let claimerFullName = "";
+
+            if (action === "claim") {
+                const firstName = document.getElementById("claimer-first-name").value.trim();
+                const lastName = document.getElementById("claimer-last-name").value.trim();
+
+                if (!firstName || !lastName) {
+                    alert("⚠️ Sila isi kedua-dua Nama Pertama dan Nama Akhir anda sebelum claim!");
+                    return;
+                }
+                claimerFullName = firstName + " " + lastName;
+                
+                let localClaimedGifts = JSON.parse(localStorage.getItem("my_claimed_gifts") || "[]");
+                if (!localClaimedGifts.includes(id)) {
+                    localClaimedGifts.push(id);
+                    localStorage.setItem("my_claimed_gifts", JSON.stringify(localClaimedGifts));
+                }
+            } else if (action === "unclaim") {
+                let localClaimedGifts = JSON.parse(localStorage.getItem("my_claimed_gifts") || "[]");
+                localClaimedGifts = localClaimedGifts.filter(giftId => giftId !== id);
+                localStorage.setItem("my_claimed_gifts", JSON.stringify(localClaimedGifts));
+            }
+
+            const claimBtn = document.getElementById("modal-claim-btn");
+            claimBtn.innerText = "Processing...";
+            claimBtn.disabled = true;
+
+            giftStatusMap[String(id)] = (action === "claim") ? "claimed" : "available";
+            renderGiftGrid();
+            closeGiftDetail();
+
+            const formData = new FormData();
+            formData.append("giftId", id);
+            formData.append("action", action);
+            formData.append("name", claimerFullName);
+
+            fetch(giftDatabaseUrl, {
+                method: "POST",
+                mode: "no-cors",  
+                body: formData
+            })
+            .then(() => {
+                console.log(`Berjaya segerak aksi ${action} untuk ID: ${id}`);
+            })
+            .catch(err => {
+                console.error("Gagal sync ke server:", err);
+            });
+            
+            setTimeout(() => {
+                fetch(giftDatabaseUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        giftStatusMap = {}; 
+                        data.forEach(item => {
+                            giftStatusMap[String(item.giftId).trim()] = String(item.status).trim();
+                        });
+                        renderGiftGrid();
+                    });
+            }, 2000);
+        }
+
+        // 🚀 INSIALISASI AOS ANIMATION (REVERSIBLE EFEK SCROLL)
+        AOS.init({ 
+            duration: 800, 
+            once: false,
+            mirror: true 
+        });
+
+        // 🚀 ENJIN DETEKSI SCROLL BIAR SEKSYEN KECIK BALIK BILA SCROLL ATAS
+        const allCleanSections = document.querySelectorAll('.section-clean');
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: "-15% 0px -15% 0px",
+            threshold: 0.15
+        });
+
+        allCleanSections.forEach(section => {
+            scrollObserver.observe(section);
+        });
+
+        function displayFullPage(pageId) {
+            document.getElementById(pageId).style.display = "flex";
+            if(pageId === 'page-giftlist') {
+                fetchLiveGiftStatus();
+            }
+        }
+
+        function dismissFullPage(pageId) {
+            document.getElementById(pageId).style.display = "none";
+        }
+
+        const targetWeddingTimestamp = new Date("August 30, 2026 11:00:00").getTime();
+
+        function runCanvaClock() {
+            const currentTimestamp = new Date().getTime();
+            const timeDifference = targetWeddingTimestamp - currentTimestamp;
+
+            const oneSecond = 1000, oneMinute = 60000, oneHour = 3600000, oneDay = 86400000;
+
+            const days = Math.floor(timeDifference / oneDay);
+            const hours = Math.floor((timeDifference % oneDay) / oneHour);
+            const minutes = Math.floor((timeDifference % oneHour) / oneMinute);
+            const seconds = Math.floor((timeDifference % oneMinute) / oneSecond);
+
+            const displayDays = days < 10 ? '0' + days : days;
+            const displayHours = hours < 10 ? '0' + hours : hours;
+            const displayMins = minutes < 10 ? '0' + minutes : minutes;
+            const displaySecs = seconds < 10 ? '0' + seconds : seconds;
+
+            const timerElement = document.getElementById("live-timer-digits");
+            if (timeDifference > 0) {
+                timerElement.innerText = `${displayDays}:${displayHours}:${displayMins}:${displaySecs}`;
+            } else {
+                timerElement.innerText = "00:00:00:00";
+            }
+        }
+        setInterval(runCanvaClock, 1000);
+
+        const musicTrack = document.getElementById("canva-bg-music");
+        const musicControllerButton = document.getElementById("music-floating-toggle");
+        const envelopeVid = document.getElementById("envelope-video");
+        let trackPlayingStatus = false;
+
+        if (envelopeVid) {
+            envelopeVid.currentTime = 0; 
+            envelopeVid.loop = false; 
+            
+            envelopeVid.addEventListener('ended', () => {
+                envelopeVid.pause();
+            });
+        }
+
+        let infiniteScrollInterval = null; 
+
+        function stopAutoScroll() {
+            if (infiniteScrollInterval) {
+                clearInterval(infiniteScrollInterval);
+                infiniteScrollInterval = null;
+                document.documentElement.style.scrollBehavior = "smooth";
+                document.body.style.scrollBehavior = "smooth";
+                
+                window.removeEventListener('touchstart', stopAutoScroll);
+                window.removeEventListener('mousedown', stopAutoScroll);
+                window.removeEventListener('wheel', stopAutoScroll);
+            }
+        }
+
+        function bukaSampulSurat() {
+            if (musicTrack) {
+                musicTrack.play().then(() => {
+                    trackPlayingStatus = true;
+                    if (musicControllerButton) musicControllerButton.innerText = "🎵";
+                }).catch(err => console.log("Audio play blocked: ", err));
+            }
+
+            const welcomeOverlay = document.getElementById("welcome-cover");
+            if (welcomeOverlay) {
+                welcomeOverlay.classList.add("fade-out-page");
+            }
+
+            document.documentElement.style.scrollBehavior = "auto";
+            document.body.style.scrollBehavior = "auto";
+
+            setTimeout(() => {
+                window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+                window.addEventListener('mousedown', stopAutoScroll, { passive: true });
+                window.addEventListener('wheel', stopAutoScroll, { passive: true });
+
+                window.focus();
+
+                infiniteScrollInterval = setInterval(() => {
+                    const totalHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+                    const currentScroll = window.scrollY || window.pageYOffset;
+
+                    if ((window.innerHeight + currentScroll) >= (totalHeight - 5)) {
+                        clearInterval(infiniteScrollInterval);
+                        document.documentElement.style.scrollBehavior = "smooth";
+                    } else {
+                        window.scrollBy(0, 1); 
+                    }
+                }, 14); 
+            }, 2100); 
+        }
+
+        if (musicControllerButton) {
+            musicControllerButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                if (trackPlayingStatus) {
+                    musicTrack.pause();
+                    musicControllerButton.innerText = "🔇";
+                } else {
+                    musicTrack.play();
+                    musicControllerButton.innerText = "🎵";
+                }
+                trackPlayingStatus = !trackPlayingStatus;
+            });
+        }
+
+        const googleSheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQDtgBEv7XZCgxNpdZzkWxeAC57n-aZJWGJwgaS1mQdiAUlwIRYmR5YIAnIFsQS1fS7J_LpIKb-QJCz/pub?output=csv"; 
+
+        async function fetchLiveWishes() {
+            try {
+                const response = await fetch(googleSheetCsvUrl);
+                const data = await response.text();
+                const rows = data.split('\n').slice(1);
+                const wishesBox = document.getElementById("live-wishes-box");
+                wishesBox.innerHTML = ""; 
+                
+                let validWishesCount = 0;
+
+                rows.forEach(row => {
+                    const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    const senderName = columns[1] ? columns[1].replace(/"/g, '').trim() : ""; 
+                    const guestWish = columns[5] ? columns[5].replace(/"/g, '').trim() : "";  
+
+                    if (senderName && guestWish && guestWish.length > 2) {
+                        validWishesCount++;
+                        const wishCard = document.createElement("div");
+                        wishCard.className = "single-wish-card";
+                        wishCard.innerHTML = `
+                            <p class="wish-text">"${guestWish}"</p>
+                            <p class="wish-sender">✍️ ${senderName}</p>
+                        `;
+                        wishesBox.insertBefore(wishCard, wishesBox.firstChild);
+                    }
+                });
+
+                if (validWishesCount === 0) {
+                    wishesBox.innerHTML = '<p class="no-wishes">Belum ada ucapan lagi. ❤️</p>';
+                }
+            } catch (error) {
+                console.error("Ralat memuatkan ucapan: ", error);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchLiveWishes);
+
+    </script>
+</body>
+</html>

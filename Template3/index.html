@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walimatulurus Nurul Izzah & Omar Farouq</title>
+    
+    <!-- Google Fonts untuk klon gaya tulisan Canva kau -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts Baru: Ditambah Kaushan Script klon premium Canva -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Kaushan+Script&display=swap" rel="stylesheet">
+    
+    <!-- AOS Library CSS untuk animasi masuk lembut -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-cream: #ffe3be ; /* Warna latar belakang krim floral lembut kau */
+            --maroon-text: #7d415d; /* Warna tulisan merah manggis/maroon */
+            --nav-bg: #ffe3be; /* Warna bar navigasi atas */
+            --btn-pink: #82796B; /* Warna butang navigasi pastel */
+            --card-pink: #ffe3be; /* Warna panel penuh untuk ruangan pop-up */
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: var(--font-sans);
+            color: #4a4a4a;
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        /* ==========================================================================
+           STYLE REKAAN ENVELOPE & INTERAKTIF WAX SEAL (Slaid Slow 2 Saat)
+           ========================================================================== */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f9ebe6;
+            z-index: 9999; /* Sentiasa berada di lapisan paling atas sekali */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            /* TUKAR KEPADA 2 SAAT: Memenuhi permintaan Omar untuk transisi slow-mo */
+            transition: transform 4.0s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Mengangkat skrin sampul surat naik ke atas selepas animasi video 1 saat selesai */
+        .welcome-overlay.fade-out-page {
+            transform: translateY(-100%);
+        }
+
+        /* Menjadikan video sebagai background penuh yang responsif mengikut resolusi phone */
+        .envelope-video-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        /* Container konten lutsinar di atas lapisan video */
+        .welcome-content-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* BUTANG WAX SEAL: Ditambah ruang acuan untuk meletakkan teks melengkung SVG */
+        .btn-wax-seal-trigger {
+            position: absolute;
+            bottom: 30%; 
+            width: 130px;  
+            height: 130px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            padding: 0;
+            animation: waxSealPulse 1.4s infinite alternate;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* GAYA KHUSUS IMEJ PNG WAX SEAL */
+        .wax-seal-img {
+            width: 85px;  
+            height: 85px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); 
+            transition: transform 0.2s ease;
+            z-index: 2;
+        }
+
+        /* SYSTEM TULISAN MELENGKUNG TAP HERE */
+        .curved-text-svg {
+            position: absolute;
+            top: 7px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .curved-text-svg text {
+            font-family: var(--font-sans);
+            font-size: 8.5px;
+            font-weight: 500;
+            letter-spacing: 2.5px;
+            fill: #7d415d;
+            text-transform: uppercase;
+        }
+
+        /* Efek klik mekanikal pada wax seal */
+        .btn-wax-seal-trigger:active .wax-seal-img,
+        .btn-wax-seal-trigger:active .curved-text-svg {
+            transform: scale(0.92);
+        }
+
+        @keyframes waxSealPulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+
+        /* Pembungkus Utama (Sama saiz dengan resolusi telefon bimbit kau) */
+        .main-wrapper {
+            width: 100%;
+            max-width: 450px;
+            background-color: var(--bg-cream);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 25px 15px 80px 15px; /* Ditambah padding atas sikit */
+        }
+
+        /* Paksa video duduk diam kat belakang masa skrol tanpa pepijat zoom */
+        .body-video-bg {
+            position: fixed; 
+            top: 0;
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 100%;
+            max-width: 450px; 
+            height: 100vh; 
+            object-fit: cover; 
+            object-position: center; 
+            pointer-events: none; 
+            z-index: 0; 
+            filter: blur(0px);
+        }
+
+        /* ==========================================================================
+           STICKY BOTTOM NAVIGATION BAR (Gaya Premium App - Sentiasa Kat Bawah)
+           ========================================================================== */
+        .bottom-navbar {
+            position: fixed; 
+            bottom: 0;       
+            top: auto;
+            width: 100%;
+            max-width: 450px; 
+            background-color: var(--nav-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 14px 5px; 
+            z-index: 1999; 
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.15); 
+            margin-left: -15px; 
+        }
+
+        .nav-button {
+            background-color: var(--btn-pink);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: white;
+            color: var(--maroon-text);
+        }
+
+        /* ==========================================================================
+           PERBAIKAN MUTLAK: KASI BUNGA CORNER MENINDIH BORDER (BUANG OVERFLOW BUG)
+           ========================================================================== */
+        .section-frame {
+            margin: 25px auto;
+            padding: 50px 30px;
+            text-align: center;
+            position: relative; 
+            
+            /* BUANG IMMEJ ASAL DARI SINI: Kita tukar pakai warna base lutsinar sahaja */
+            background-color: rgba(255, 255, 255, 0.15); /* Warna putih base gila-gila cair */
+            
+            border: none;
+            border-radius: 35px;
+            overflow: visible; 
+            
+            transform: scale(0.8);
+            opacity: 0.55; /* Kekalkan base opacity asal untuk scroll animation kau */
+            box-shadow: none; 
+            z-index: 2; 
+            
+            /* Efek glassmorphism biar partikel video nampak tembus bayang perlahan */
+            backdrop-filter: blur(4px); 
+            -webkit-backdrop-filter: blur(4px);
+            
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2), 
+                        opacity 0.5s ease;
+        }
+
+        /* Pastikan kandungan teks/gambar pengantin sentiasa berada di atas layer background dan solid 100% */
+        .frame-content-isolate {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 
+           LAPISAN KHAS INDUK BACKGROUND: 
+           Di sinilah kita panggil 'Background2.png' dan paksa dia jadi lutsinar!
+        */
+        .section-frame .frame-bg-layer {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            background-image: url('Background2.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+            border-radius: 35px;
+            
+            /* 
+               ⚠️ !!! EJAS TAHAP LUTSINAR DEKAT SINI !!! 
+               Nilai 0.35 maksudnya imej kad kau akan jadi 35% jelas (65% lutsinar tembus ke video).
+               Kalau nak lagi transparent, kecilkan lagi nombor ni (contoh: 0.2).
+            */
+            opacity: 0.35; 
+            
+            z-index: -1; /* Tolak dia duduk belakang teks, tapi atas video bg */
+            pointer-events: none;
+        }
+
+        /* 1. Bucu Kiri Atas (::before) - Diperkemaskan koordinat */
+        .section-frame::before {
+            content: '';
+            position: absolute;
+            top: -12px;   /* Tolak keluar sikit dari border supaya nampak efek membalut bucu */
+            left: -13px;  /* Tolak keluar sikit */
+            width: 150px;  
+            height: 150px;
+            background-image: url('flowercorner.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 99;  /* Naikkan layer gila-gila tinggi menindih segala content */
+            pointer-events: none;
+            transform: rotate(0deg),scale(0.85); 
+        }
+
+        /* 2. Bucu Kanan Bawah (::after) - Diperkemaskan koordinat */
+        .section-frame::after {
+            content: '';
+            position: absolute;
+            bottom: -12px; /* Tolak keluar sikit */
+            right: -13px;  /* Tolak keluar sikit */
+            width: 150px;
+            height: 150px;
+            background-image: url('flowercorner.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 99;   /* Naikkan layer gila-gila tinggi */
+            pointer-events: none;
+            transform: scaleX(-1) rotate(-90deg); 
+        }
+        /* KEADAAN AKTIF: Bila kad berada tepat di tengah skrin */
+        .section-frame.active {
+            transform: scale(0.95);
+            opacity: 0.9;
+            box-shadow: none; 
+            z-index: 5; 
+        }
+
+        /* HERO INVITATION STYLE */
+        .hero-section {
+            padding-top: 40px;
+            padding-bottom: 30px;
+        }
+
+        .hero-groom-name, .hero-bride-name {
+            font-family: 'Kaushan Script', cursive; /* <<< Pakai Kaushan Script kegemaran Omar */
+            font-size: 42px; /* Saiz optimum mengikut ketebalan font berus */
+            color: var(--maroon-text);
+            line-height: 1.3;
+            font-weight: 400; /* Tebal semula jadi tak payah bold manual */
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-ampersand {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 32px;
+            color: #333333;
+            display: block;
+            line-height: 1.0;
+            margin-top: 8px;     
+            margin-bottom: 8px;  
+        }
+
+        .center-flower-illustration {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0; 
+            padding: 0 5px;
+            display: block;
+            transform: scaleX(-1); 
+        }
+
+        .title-walimatulurus {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: #4a4a4a;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+        }
+
+        .event-meta-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-family: var(--font-sans);
+            color: #4a4a4a;
+            margin-bottom: 30px;
+        }
+
+        .event-meta-info .vertical-line {
+            width: 1px;
+            height: 40px;
+            background-color: var(--maroon-text);
+            margin: 0 25px;
+        }
+
+        .primary-hashtag {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: #4a4a4a;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        /* PARENTS & COUPLE PHOTO STYLE */
+        .bismillah-text {
+            font-size: 24px;
+            color: #000000;
+            margin-bottom: 15px;
+        }
+
+        .greeting-sub {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+        }
+
+        .parents-full-name {
+            font-family: 'Amiri', serif;
+            font-size: 18px; /* <<< Dah ciut sikit bro */
+            color: var(--maroon-text);
+            font-weight: 700;
+            margin: 5px 0;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+
+        .invitation-body-paragraph {
+            font-size: 11px;
+            line-height: 1.7;
+            margin: 25px auto;
+            max-width: 95%;
+            color: #4a4a4a;
+        }
+
+        .split-couple-container {
+            width: 100%;
+            margin: 35px 0 10px 0;
+            text-align: left;
+        }
+
+        .couple-row-block {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .couple-row-block.reverse-direction {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+
+        
+
+        /* TRIK MULTIMEDIA: Kita jadikan frame_bunga.png sebagai pseudo-element ::after */
+        /* Cara ni paksa frame duduk kat lapisan paling atas sekali (foreground) */
+        .profile-wooden-frame {
+            width: 135px;  /* Diturunkan dari 155px ke 135px supaya ada ruang untuk teks */
+            height: 135px; /* Diturunkan dari 155px ke 135px */
+            background-color: transparent;
+            position: relative;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: visible;
+            transition: transform 0.3s ease;
+        }
+
+        /* Trik pseudo-element membalut frame bunga */
+        .profile-wooden-frame::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('frame.png'); 
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .profile-wooden-frame:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-wooden-frame img {
+            width: 70%;  
+            height: 80%; 
+            object-fit: cover;
+            border-radius: 0px; 
+            z-index: 1;  
+            position: relative;
+        }
+
+        /* 1. GAYA IMEJ BISMILLAH BARU (Ganti teks ﷽ lama) */
+        .bismillah-img {
+            width: 140px; /* Saiz ikut gambar WhatsApp kau */
+            height: auto;
+            margin: 0 auto 15px auto;
+            display: block;
+        }
+
+        /* 2. NAMA IBU BAPA: Ditukar ke Font Amiri */
+        .parents-full-name {
+            font-family: 'Amiri', serif; /* <<< INI AMIRI */
+            font-size: 17px; 
+            color: var(--maroon-text);
+            font-weight: 700;
+            margin: 5px 0;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+
+        .couple-text-details {
+            padding: 0 10px; /* Dikurangkan padding sikit biar tak tolak text jauh sangat */
+            font-family: 'Italianno', cursive;
+            font-size: 20px; /* Dinaikkan ke 30px semula sbb ruang dah luas, tulisan akan nampak herlok */
+            font-weight: 400;
+            color: var(--maroon-text);
+            line-height: 1.1;
+            letter-spacing: 0.5px;
+            
+            /* KUNCI UTAMA: Ambil baki ruang kosong skrin sepenuhnya tanpa tersekat */
+            flex: 1; 
+        }
+
+        /* COUNTDOWN & VECTOR STYLE */
+        .section-headline-serif {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            color: #5d6353;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .canva-countdown-display {
+            font-size: 38px;
+            color: var(--maroon-text);
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin: 15px 0;
+            font-family: var(--font-sans);
+        }
+
+        .canva-countdown-labels {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #666666;
+            letter-spacing: 1px;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+        .canva-countdown-labels span {
+            width: 45px;
+            text-align: center;
+        }
+
+        .illustration-faceless-couple {
+            width: 65%;
+            margin: 20px auto 0 auto;
+            display: block;
+        }
+
+        /* ITINERARY & DETAILS STYLE */
+        .huge-section-title {
+            font-family: var(--font-serif);
+            font-size: 54px;
+            color: #3b4d3a;
+            line-height: 0.9;
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        .itinerary-sublabel {
+            font-size: 18px;
+            font-weight: 500;
+            color: #4a4a4a;
+            margin-top: 25px;
+            margin-bottom: 8px;
+        }
+
+        .itinerary-value-text {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .canva-vertical-timeline {
+            margin: 30px auto;
+            max-width: 320px;
+            position: relative;
+            text-align: left;
+            padding-left: 30px;
+        }
+
+        .canva-vertical-timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            bottom: 5px;
+            width: 1px;
+            background: var(--nav-bg);
+        }
+
+        .timeline-row-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .timeline-row-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--maroon-text);
+            border: 2px solid var(--bg-cream);
+            box-shadow: 0 0 0 2px var(--maroon-text);
+        }
+
+        .timeline-row-item .event-time {
+            font-weight: 600;
+            color: #9c414d;
+            display: inline-block;
+            width: 80px;
+            font-size: 14px;
+        }
+
+        .timeline-row-item .event-name {
+            font-size: 13px;
+            display: inline-block;
+            vertical-align: top;
+            max-width: 200px;
+        }
+
+        .embedded-location-anchor {
+            color: #3b4d3a;
+            text-decoration: underline;
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .prayer-blessing-text {
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 15px 0 25px 0;
+            font-style: italic;
+            padding: 0 10px;
+        }
+
+        /* PANEL OVERLAY SYSTEM (Bbubble pop effect) */
+        .fullpage-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(249, 235, 230, 0.95); 
+            background-image: url('background-pattern.png');
+            background-size: cover;
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            overflow-y: auto;
+            animation: fadeInOverlay 0.3s ease forwards;
+        }
+
+        .fullpage-content-box {
+            width: 100%;
+            max-width: 450px;
+            min-height: 100vh;
+            padding: 40px 25px;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+        }
+
+        .pink-dashboard-card {
+            background-color: var(--card-pink);
+            width: 100%;
+            max-width: 360px; 
+            border-radius: 40px;
+            padding: 40px 20px;
+            color: #4a4a4a;
+            box-shadow: 0 15px 35px rgba(128, 51, 60, 0.25);
+            text-align: center;
+            transform: scale(1); 
+            animation: bubbleInCard 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25) forwards;
+        }
+
+        .back-circle-button {
+            position: absolute;
+            top: 30px; 
+            left: 25px;
+            background-color: var(--nav-bg);
+            color: #4a4a4a;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 2010;
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bubbleInCard {
+            0% { transform: scale(0.6); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .dashboard-card-headline {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .dashboard-contact-list {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 2;
+            letter-spacing: 0.5px;
+        }
+
+        .dashboard-action-trigger {
+            background-color: #82796B;
+            color: #ffffff;
+            border: none;
+            padding: 12px 50px;
+            border-radius: 15px;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: inline-block;
+        }
+
+        .dashboard-qr-wrapper {
+            width: 200px;
+            height: 200px;
+            background: white;
+            margin: 25px auto;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .dashboard-qr-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .music-floating-toggle {
+            position: fixed;
+            bottom: 85px; 
+            right: calc(50% - 200px);
+            width: 45px;
+            height: 45px;
+            background-color: var(--nav-bg);
+            color: #4a4a4a;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        @media (max-width: 450px) {
+            .music-floating-toggle { right: 25px; }
+        }
+
+        /* ==========================================================================
+           REKAAN SEKSYEN WISHES (LIVE RSVP GOOGLE SHEETS FEED)
+           ========================================================================== */
+        .wishes-container {
+            max-height: 450px; /* Hadkan tinggi supaya tak memanjang sampai kiamat */
+            overflow-y: auto;  /* Biar kotak ucapan ni boleh di-skrol dalam kad */
+            padding-right: 5px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        /* Rekaan bar skrol comel untuk phone */
+        .wishes-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .wishes-container::-webkit-scrollbar-thumb {
+            background: var(--btn-pink);
+            border-radius: 10px;
+        }
+
+        .single-wish-card {
+            background: rgba(255, 255, 255, 0.6);
+            border-left: 3px solid var(--maroon-text);
+            padding: 12px 15px;
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .wish-text {
+            font-size: 12px;
+            font-style: italic;
+            line-height: 1.5;
+            color: #4a4a4a;
+            margin-bottom: 5px;
+        }
+
+        .wish-sender {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--maroon-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .no-wishes {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+            padding: 20px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ================= WELCOME COVER SCREEN: AUTOMATIC VIDEO PLAY ================= -->
+    <div id="welcome-cover" class="welcome-overlay">
+        <video id="envelope-video" class="envelope-video-bg" autoplay muted playsinline>
+            <source src="envelopev1.mp4" type="video/mp4">
+        </video>
+
+        <!-- Container Konten Lutsinar -->
+        <div class="welcome-content-container">
+            <!-- Butang Wax Seal Interaktif (Dah masuk teks melengkung SVG permintaan Omar) -->
+            <button onclick="bukaSampulSurat()" class="btn-wax-seal-trigger" aria-label="Buka Kad">
+                <img src="wax_seal.png" alt="Wax Seal Red" class="wax-seal-img">
+                
+                <svg class="curved-text-svg" viewBox="0 0 100 100">
+                    <path id="textPath" d="M 12,50 A 38,38 0 0,0 88,50" fill="transparent" />
+                    <text>
+                        <textPath href="#textPath" startOffset="50%" text-anchor="middle">TAP HERE</textPath>
+                    </text>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN WRAPPER UNIT -->
+    <div class="main-wrapper">
+
+        <!-- Video Background Statik -->
+        <video id="html-bg-video" class="body-video-bg" autoplay loop muted playsinline>
+            <source src="bgvid.mp4" type="video/mp4">
+        </video>
+        
+        <!-- ================= FRAME 1: HERO HOME PAGE ================= -->
+        <div class="section-frame" data-aos="fade-up" data-aos-duration="1000">
+            <!-- 🚀 LAPISAN BACKGROUND LUTSINAR -->
+            <div class="frame-bg-layer"></div>
+            
+            <!-- 🚀 PEMBUNGKUS KANDUNGAN UTAMA (SUPAYA TEKS KEKAL CERAH/SOLID) -->
+            <div class="frame-content-isolate">
+                <section class="hero-section" style="padding: 0;">
+                    <div class="hero-groom-name">Omar Farouq</div>
+                    <span class="hero-ampersand">&</span>
+                    <div class="hero-bride-name">Nurul Izzah</div>
+                    
+                    <img src="sakura.png" alt="Sakura Illustration" class="center-flower-illustration">
+                    
+                    <p class="title-walimatulurus">WALIMATULURUS</p>
+                    
+                    <div class="event-meta-info">
+                        <div>OGOS 30,<br>2026</div>
+                        <div class="vertical-line"></div>
+                        <div>PICC<br>PUTRAJAYA</div>
+                    </div>
+                    
+                    <p class="primary-hashtag">#OMarriedIzzah</p>
+                </section>
+            </div>
+        </div>
+
+        <!-- ================= FRAME 2: PARENTS & PHOTOS PAGE ================= -->
+        <div class="section-frame" data-aos="fade-up" data-aos-duration="1000">
+            <!-- 🚀 LAPISAN BACKGROUND LUTSINAR -->
+            <div class="frame-bg-layer"></div>
+            
+            <!-- 🚀 PEMBUNGKUS KANDUNGAN UTAMA -->
+            <div class="frame-content-isolate">
+                <section style="padding: 0;">
+                    <div>
+                        <!-- KOD BARU: Teks bismillah lama dah diganti dengan imej bismillah.png -->
+                        <img src="bismillah.png" alt="Bismillah Kaligrafi" class="bismillah-img">
+                        
+                        <p class="greeting-sub">ASSALAMUALAIKUM W.B.T & SALAM SEJAHTERA</p>
+                        
+                        <h2 class="parents-full-name">RAHIM BIN GHAZALI</h2>
+                        <p style="font-size: 14px; margin: 2px 0; font-family: var(--font-sans);">&</p>
+                        <h2 class="parents-full-name">NORHAYATI ABDUL RAHIM</h2>
+                        
+                        <p class="invitation-body-paragraph">
+                            DENGAN PENUH KESYUKURAN DAN HORMATNYA MENJEMPUT YBHG. DATO'/DATIN/TUAN/PUAN/ENCIK/CIK KE MAJLIS PERKAHWINAN PUTERA KAMI
+                        </p>
+                    </div>
+
+                    <div class="split-couple-container">
+                        <!-- Baris Pengantin Perempuan (Kiri) -->
+                        <div class="couple-row-block">
+                            <div class="profile-wooden-frame">
+                                <img src="gambar_omar.png" alt="Omar Farouq">
+                            </div>
+                            <div class="couple-text-details">
+                                Omar Farouq Bin Rahim
+                            </div>
+                        </div>
+
+                        <!-- Baris Pengantin Lelaki (Kanan) -->
+                        <div class="couple-row-block reverse-direction" style="margin-bottom: 0;">
+                            <div class="profile-wooden-frame">
+                                <img src="gambar_izzah.png" alt="Nurul Izzah">
+                            </div>
+                            <div class="couple-text-details">
+                                Nurul Izzah Binti Muhammad Zahir
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- ================= FRAME 3: COUNTDOWN TIME PAGE ================= -->
+        <div class="section-frame" data-aos="fade-up" data-aos-duration="1000">
+            <!-- 🚀 LAPISAN BACKGROUND LUTSINAR -->
+            <div class="frame-bg-layer"></div>
+            
+            <!-- 🚀 PEMBUNGKUS KANDUNGAN UTAMA -->
+            <div class="frame-content-isolate">
+                <section style="padding: 0;">
+                    <h2 class="section-headline-serif">MENANTI HARI BAHAGIA</h2>
+                    
+                    <div class="canva-countdown-display" id="live-timer-digits">
+                        00:00:00:00
+                    </div>
+                    <div class="canva-countdown-labels">
+                        <span>Hari</span>
+                        <span>Jam</span>
+                        <span>Minit</span>
+                        <span>Saat</span>
+                    </div>
+                    
+                    <img src="Bride.png" alt="Faceless Couple Vector" class="illustration-faceless-couple">
+                </section>
+            </div>
+        </div>
+
+        <!-- ================= FRAME 4: ITINERARY TIME PAGE ================= -->
+        <div class="section-frame" data-aos="fade-up" data-aos-duration="1000">
+            <!-- 🚀 LAPISAN BACKGROUND LUTSINAR -->
+            <div class="frame-bg-layer"></div>
+            
+            <!-- 🚀 PEMBUNGKUS KANDUNGAN UTAMA -->
+            <div class="frame-content-isolate">
+                <section style="padding: 0;">
+                    <h2 class="huge-section-title">BUTIRAN<br>MAJLIS</h2>
+                    
+                    <p class="itinerary-sublabel" style="margin-top: 0;">Tarikh</p>
+                    <p class="itinerary-value-text" style="font-weight: 500;">
+                        AHAD<br>30 OGOS 2026<br>17 RABIULAWAL 1448 AH
+                    </p>
+                    
+                    <p class="itinerary-sublabel">Aturcara Majlis</p>
+                    <div class="canva-vertical-timeline">
+                        <div class="timeline-row-item">
+                            <span class="event-time">11:00 AM</span>
+                            <span class="event-name">KETIBAAN TETAMU &<br>JAMUAN MAKAN</span>
+                        </div>
+                        <div class="timeline-row-item">
+                            <span class="event-time">12:00 PM</span>
+                            <span class="event-name">KETIBAAN PENGANTIN</span>
+                        </div>
+                        <div class="timeline-row-item" style="margin-bottom: 0;">
+                            <span class="event-time">4:00 PM</span>
+                            <span class="event-name">MAJLIS SELESAI</span>
+                        </div>
+                    </div>
+                    
+                    <p class="itinerary-sublabel">Tempat</p>
+                    <p class="itinerary-value-text" style="margin-bottom: 0;">
+                        <a href="https://maps.app.goo.gl/KpApyKnqbsFJVSf48?g_st=ac" target="_blank" class="embedded-location-anchor">MAGICA WINTER HALL<br>PUTRAJAYA INTERNATIONAL
+CONVENTION CENTRE (PICC),<br>PRESINT 5, PUTRAJAYA</a>
+                    </p>
+                </section>
+            </div>
+        </div>
+
+        <!-- ================= FRAME 5: FOOTER BLESSING PAGE ================= -->
+        <div class="section-frame" data-aos="fade-up" data-aos-duration="1000" style="margin-bottom: 10px;">
+            <!-- 🚀 LAPISAN BACKGROUND LUTSINAR -->
+            <div class="frame-bg-layer"></div>
+            
+            <!-- 🚀 PEMBUNGKUS KANDUNGAN UTAMA -->
+            <div class="frame-content-isolate">
+                <section style="padding: 0;">
+                    <p class="prayer-blessing-text">
+                        YA ALLAH, BERKATILAH PENYATUAN INI, SATUKANLAH HATI MEREKA DALAM KASIH DAN RAHMAT-MU, SERTA KURNIAKANLAH KEBAHAGIAAN YANG BERKEKALAN HINGGA KE SYURGA-MU. AAMIIN YA RABBAL 'ALAMIN.
+                    </p>
+                    <p style="font-size: 11px; font-family: var(--font-sans); margin-bottom: 5px; font-weight: 500;">SURAH AN-NABA' AYAT 8:</p>
+                    <p style="font-family: var(--font-serif); font-style: italic; font-size: 16px; color: var(--maroon-text); margin-bottom: 0;">"Dan Kami menciptakan kamu berpasang-pasangan."</p>
+                </section>
+            </div>
+        </div>
+
+        <!-- STICKY BOTTOM NAVIGATION BAR -->
+        <nav class="bottom-navbar">
+            <button class="nav-button" onclick="displayFullPage('page-contact')">Hubungi</button>
+            <button class="nav-button" onclick="displayFullPage('page-rsvp')">RSVP</button>
+            <button class="nav-button" onclick="window.open('https://maps.app.goo.gl/KpApyKnqbsFJVSf48?g_st=ac', '_blank')">Lokasi</button>
+        </nav>
+
+        <!-- ================= FRAME 4.5: WISHES GUESTBOOK PAGE ================= -->
+        <div class="section-frame" data-aos="fade-up" data-aos-duration="1000">
+            <!-- 🚀 LAPISAN BACKGROUND LUTSINAR -->
+            <div class="frame-bg-layer"></div>
+            
+            <!-- 🚀 PEMBUNGKUS KANDUNGAN UTAMA -->
+            <div class="frame-content-isolate">
+                <section style="padding: 0; width: 100%;">
+                    <h2 class="section-headline-serif" style="margin-bottom: 10px; font-size: 24px;">UCAPAN TETAMU</h2>
+                    
+                    <!-- Kotak takungan ucapan automatik -->
+                    <div id="live-wishes-box" class="wishes-container">
+                        <p class="no-wishes">Sedang memuatkan ucapan indah...</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div><!-- End Main Wrapper -->
+
+    <!-- ==========================================================================
+        SISTEM HALAMAN PENUH OVERLAY DASHBOARD (YANG TERTINGGAL TADI)
+        ========================================================================== -->
+
+    <!-- Halaman Penuh: HUBUNGI -->
+    <div id="page-contact" class="fullpage-overlay">
+        <div class="fullpage-content-box">
+            <button class="back-circle-button" onclick="dismissFullPage('page-contact')">&larr;</button>
+            <div class="pink-dashboard-card">
+                <div class="dashboard-card-headline">SILA KLIK NAMA DI BAWAH<br>UNTUK TERUS CHAT WHATSAPP:</div>
+                <div class="dashboard-contact-list">
+                    <p><a href="https://wa.me/60193879787" target="_blank" style="color: #82796B; text-decoration: none; display: block; padding: 5px 0;">💬 Rahim (019-3879787)</a></p>
+                    <p><a href="https://wa.me/60133751217" target="_blank" style="color: #82796B; text-decoration: none; display: block; padding: 5px 0;">💬 Ibni (013-3751217)</a></p>
+                    <p><a href="https://wa.me/60132815439" target="_blank" style="color: #82796B; text-decoration: none; display: block; padding: 5px 0;">💬 Uthman (013-2815439)</a></p>
+                    <p><a href="https://wa.me/60148376213" target="_blank" style="color: #82796B; text-decoration: none; display: block; padding: 5px 0;">💬 Khadijah (014-8376213)</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Halaman Penuh: RSVP -->
+    <div id="page-rsvp" class="fullpage-overlay">
+        <div class="fullpage-content-box">
+            <button class="back-circle-button" onclick="dismissFullPage('page-rsvp')">&larr;</button>
+            <div class="pink-dashboard-card">
+                <div class="dashboard-card-headline" style="margin-bottom: 10px;">SILA SAHKAN KEHADIRAN ANDA</div>
+                <div class="dashboard-card-headline">SEBELUM 28 OGOS 2026</div>
+                <button class="dashboard-action-trigger" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScF3Zl7HGbVTtjHcBviOBCYyz5T3nyCoL3UK4dsPojnWrfd9A/viewform?usp=dialog'">RSVP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEM UTAMA LAGU LATAR -->
+    <audio id="canva-bg-music" loop>
+        <source src="Cinta Luar Biasa.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-floating-toggle" class="music-floating-toggle">🎵</button>
+
+    <!-- ENGIN JAVASCRIPT LOGIC -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Paksa video background perlahan (0.5x kelajuan) sejak permulaan load skrin
+        window.addEventListener('DOMContentLoaded', () => {
+            const backgroundVideo = document.getElementById("html-bg-video");
+            if (backgroundVideo) {
+                backgroundVideo.playbackRate = 0.7; 
+                console.log("Video background successfully set to slow-mo on load.");
+            }
+        });
+
+        // 1. Mengaktifkan Library AOS Animasi
+        AOS.init({ duration: 1000, once: true });
+
+        // 2. Fungsi Membuka & Menutup Halaman Panel Penuh (Navigation Bar)
+        function displayFullPage(pageId) {
+            document.getElementById(pageId).style.display = "flex";
+        }
+
+        // Membetulkan ralat rupa bentuk panel popup
+        function dismissFullPage(pageId) {
+            document.getElementById(pageId).style.display = "none";
+        }
+
+        // 3. Formula Khas Hitung Masa Countdown (DD:HH:MM:SS)
+        const targetWeddingTimestamp = new Date("August 30, 2026 11:00:00").getTime();
+
+        function runCanvaClock() {
+            const currentTimestamp = new Date().getTime();
+            const timeDifference = targetWeddingTimestamp - currentTimestamp;
+
+            const oneSecond = 1000, oneMinute = 60000, oneHour = 3600000, oneDay = 86400000;
+
+            const days = Math.floor(timeDifference / oneDay);
+            const hours = Math.floor((timeDifference % oneDay) / oneHour);
+            const minutes = Math.floor((timeDifference % oneHour) / oneMinute);
+            const seconds = Math.floor((timeDifference % oneMinute) / oneSecond);
+
+            const displayDays = days < 10 ? '0' + days : days;
+            const displayHours = hours < 10 ? '0' + hours : hours;
+            const displayMins = minutes < 10 ? '0' + minutes : minutes;
+            const displaySecs = seconds < 10 ? '0' + seconds : seconds;
+
+            const timerElement = document.getElementById("live-timer-digits");
+            if (timeDifference > 0) {
+                timerElement.innerText = `${displayDays}:${displayHours}:${displayMins}:${displaySecs}`;
+            } else {
+                timerElement.innerText = "00:00:00:00";
+            }
+        }
+        setInterval(runCanvaClock, 1000);
+
+        // 4. LOGIK ENGIN UTAMA: PLAY SAMPAI HABIS & FREEZE FRAME AKHIR
+        const musicTrack = document.getElementById("canva-bg-music");
+        const musicControllerButton = document.getElementById("music-floating-toggle");
+        const envelopeVid = document.getElementById("envelope-video");
+        let trackPlayingStatus = false;
+
+        if (envelopeVid) {
+            envelopeVid.currentTime = 0; 
+            envelopeVid.loop = false; 
+            
+            envelopeVid.addEventListener('ended', () => {
+                envelopeVid.pause();
+                console.log("Video dah habis main sepunuhnya. Auto-freeze dekat frame terakhir.");
+            });
+        }
+
+        // ==========================================================================
+        // LOGIK KAWALAN AUTO-SCROLL TANPA HENTI & PENGESAN SENTUHAN JARI
+        // ==========================================================================
+        let infiniteScrollInterval = null; // Pembolehubah global untuk pegang enjin skrol
+
+        // Fungsi khas untuk matikan auto-skrol sebaik sahaja user usik skrin
+        function stopAutoScroll() {
+            if (infiniteScrollInterval) {
+                clearInterval(infiniteScrollInterval);
+                infiniteScrollInterval = null;
+                console.log("Auto-scroll deactivated: User took over control.");
+                
+                // 🚀 TRIK IPHONE: Hidupkan balik smooth scroll untuk kegunaan butang Navigasi bawah
+                document.documentElement.style.scrollBehavior = "smooth";
+                document.body.style.scrollBehavior = "smooth";
+                
+                window.removeEventListener('touchstart', stopAutoScroll);
+                window.removeEventListener('mousedown', stopAutoScroll);
+                window.removeEventListener('wheel', stopAutoScroll);
+            }
+        }
+
+        // FUNGSI PICUAN: Bila tetamu picit butang Wax Seal Merah
+        function bukaSampulSurat() {
+            if (musicTrack) {
+                musicTrack.play().then(() => {
+                    trackPlayingStatus = true;
+                    if (musicControllerButton) musicControllerButton.innerText = "🎵";
+                }).catch(err => console.log("Audio play blocked by browser: ", err));
+            }
+
+            const welcomeOverlay = document.getElementById("welcome-cover");
+            if (welcomeOverlay) {
+                welcomeOverlay.classList.add("fade-out-page");
+            }
+
+            // 🚀 KUNCI GERENTI JADI UNTUK IPHONE:
+            // Kita ruyung matikan 'scroll-behavior: smooth' dekat HTML & Body secara paksa
+            document.documentElement.style.scrollBehavior = "auto";
+            document.body.style.scrollBehavior = "auto";
+
+            setTimeout(() => {
+                window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+                window.addEventListener('mousedown', stopAutoScroll, { passive: true });
+                window.addEventListener('wheel', stopAutoScroll, { passive: true });
+
+                window.focus();
+
+                infiniteScrollInterval = setInterval(() => {
+                    const totalHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+                    const currentScroll = window.scrollY || window.pageYOffset;
+
+                    if ((window.innerHeight + currentScroll) >= (totalHeight - 5)) {
+                        clearInterval(infiniteScrollInterval);
+                        // Hidupkan balik smooth scroll bila dah sampai bawah sekali
+                        document.documentElement.style.scrollBehavior = "smooth";
+                    } else {
+                        // Tolak 1 pixel mentah tanpa kekangan CSS smooth
+                        window.scrollBy(0, 1); 
+                    }
+                }, 14); // Di-lajukan sikit ke 14ms biar nampak berseri dekat skrin 120Hz iPhone
+            }, 2100); 
+        }
+
+        // Fungsi Butang Floating Toggle Musik Manual
+        if (musicControllerButton) {
+            musicControllerButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                if (trackPlayingStatus) {
+                    musicTrack.pause();
+                    musicControllerButton.innerText = "🔇";
+                } else {
+                    musicTrack.play();
+                    musicControllerButton.innerText = "🎵";
+                }
+                trackPlayingStatus = !trackPlayingStatus;
+            });
+        }
+
+        /* ==========================================================================
+           5. ENGIN DETEKSI SKROL PHONE (Intersection Observer) - BUBBLE SECTIONS
+           ========================================================================= */
+        const allFrames = document.querySelectorAll('.section-frame');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: "-35% 0px -35% 0px", 
+            threshold: 0.1
+        };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        allFrames.forEach(frame => {
+            scrollObserver.observe(frame);
+        });
+
+        // ==========================================================================
+        // ENJIN AUTOMATIK: TARIK DATA WISHES DARI GOOGLE SHEET CSV LIVE
+        // ==========================================================================
+        // !!! KAU GANTIKAN LINK BAWAH NI DENGAN LINK CSV GOOGLE SHEET KAU !!!
+        // ==========================================================================
+        // ENJIN BARU: KOD DAH DI-FIT DENGAN LAJUR GOOGLE SHEETS ASSET IMAGE_896E75.PNG
+        // ==========================================================================
+        
+        // 1. !!! TAMPAL LINK CSV KAU DEKAT BAWAH NI !!!
+        // Ambil dari File -> Share -> Publish to web -> Link -> CSV
+        const googleSheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQDtgBEv7XZCgxNpdZzkWxeAC57n-aZJWGJwgaS1mQdiAUlwIRYmR5YIAnIFsQS1fS7J_LpIKb-QJCz/pub?output=csv"; 
+
+        async function fetchLiveWishes() {
+            try {
+                const response = await fetch(googleSheetCsvUrl);
+                const data = await response.text();
+                
+                const rows = data.split('\n').slice(1); // Potong baris header
+                const wishesBox = document.getElementById("live-wishes-box");
+                wishesBox.innerHTML = ""; // Buang tulisan loading
+                
+                let validWishesCount = 0;
+
+                rows.forEach(row => {
+                    // Trik pecahkan data CSV secara selamat jika tetamu ada letak koma dalam ucapan
+                    const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    
+                    // KOD DAH DIPETAKAN IKUT LAJUR SEBENAR:
+                    const senderName = columns[1] ? columns[1].replace(/"/g, '').trim() : ""; // Lajur B (Nama Penuh)
+                    const guestWish = columns[5] ? columns[5].replace(/"/g, '').trim() : "";  // Lajur F (Ucapan & Doa) - FIX!
+
+                    // Paparkan ucapan yang ada isi sahaja
+                    if (senderName && guestWish && guestWish.length > 2) {
+                        validWishesCount++;
+                        const wishCard = document.createElement("div");
+                        wishCard.className = "single-wish-card";
+                        wishCard.innerHTML = `
+                            <p class="wish-text">"${guestWish}"</p>
+                            <p class="wish-sender">✍️ ${senderName}</p>
+                        `;
+                        // Ucapan terbaru masuk atas sekali (Latest first)
+                        wishesBox.insertBefore(wishCard, wishesBox.firstChild);
+                    }
+                });
+
+                if (validWishesCount === 0) {
+                    wishesBox.innerHTML = '<p class="no-wishes">Belum ada ucapan lagi. Jadilah yang pertama memberikan ucapan! ❤️</p>';
+                }
+
+            } catch (error) {
+                console.error("Ralat memuatkan ucapan: ", error);
+                document.getElementById("live-wishes-box").innerHTML = '<p class="no-wishes">Gagal memuatkan ucapan live. Cuba refresh semula.</p>';
+            }
+        }
+
+        // Jalankan enjin tarik data sepadan loading website
+        window.addEventListener('DOMContentLoaded', fetchLiveWishes);
+
+    </script>
+</body>
+</html>
